@@ -95,8 +95,9 @@ print("Done Tracking!")
 # ===============
 _, ax = plt.subplots(figsize=(6,4))
 s = [0, 20, 30, 50, 60, 100]
-ex = np.array([el.nemitt_x for el in line.get_elements_of_type(xc.EmittanceMonitor)[0]])
-ey = np.array([el.nemitt_y for el in line.get_elements_of_type(xc.EmittanceMonitor)[0]])
+tt_mon = line.get_table().rows.match(element_type='EmittanceMonitor')
+ex = np.array([line[name].nemitt_x for name in tt_mon.name])
+ey = np.array([line[name].nemitt_y for name in tt_mon.name])
 ax.plot(s, 1.e6*ex, label='H')
 ax.plot(s, 1.e6*ey, label='V')
 ax.set_ylabel(r"$\epsilon_N\; [\mu\mathrm{m}]$")
