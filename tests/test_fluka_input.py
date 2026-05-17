@@ -140,7 +140,10 @@ def test_fluka_input_line(ignore_crystals):
     colldb = xc.CollimatorDatabase.from_yaml(path / 'data' / f'colldb_lhc_run3_ir7.yaml', beam=beam,
                                              ignore_crystals=ignore_crystals)
     colldb.install_fluka_collimators(line=line, verbose=True)
-    colls, _ = line.get_elements_of_type(xc.collimator_classes)
+    tt_colls = line.get_table().rows.match(
+        element_type='|'.join(cc.__name__ for cc in xc.collimator_classes)
+    )
+    colls = [line[name] for name in tt_colls.name]
     line.build_tracker()
     line.collimators.assign_optics()
     if not ignore_crystals:
