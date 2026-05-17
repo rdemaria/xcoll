@@ -47,7 +47,7 @@ tank_start = f'adtk{plane.lower()}.{pos}.a.b{beam}'
 tank_end   = f'adtk{plane.lower()}.{pos}.d.b{beam}'
 tt = line.get_table()
 adt_pos = 0.5*tt['s', tank_start] + 0.5*tt['s', tank_end]
-adt = xc.BlowUp.install(line, name=f'{name}_blowup', at_s=adt_pos, plane=plane, stop_at_turn=num_turns,
+adt = xc.BlowUp.install(line, name=f'{name}_blowup', at=adt_pos, plane=plane, stop_at_turn=num_turns,
                         amplitude=0.5, use_individual_kicks=True)
 
 

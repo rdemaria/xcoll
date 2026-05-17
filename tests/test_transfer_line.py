@@ -78,12 +78,12 @@ def _add_air_regions(line):
 
 
 def _add_monitors(line):
-    xc.EmittanceMonitor.install(line, name="monitor start", at_s=0, longitudinal=False)
-    xc.EmittanceMonitor.install(line, name="monitor air 1 start", at_s=20, longitudinal=False)
-    xc.EmittanceMonitor.install(line, name="monitor air 1 end", at_s=30, longitudinal=False)
-    xc.EmittanceMonitor.install(line, name="monitor air 2 start", at_s=50, longitudinal=False)
-    xc.EmittanceMonitor.install(line, name="monitor air 2 end", at_s=60, longitudinal=False)
-    xc.EmittanceMonitor.install(line, name="monitor end", at_s=100, longitudinal=False)
+    xc.EmittanceMonitor.install(line, name="monitor start", at=0, longitudinal=False)
+    xc.EmittanceMonitor.install(line, name="monitor air 1 start", at=20, longitudinal=False)
+    xc.EmittanceMonitor.install(line, name="monitor air 1 end", at=30, longitudinal=False)
+    xc.EmittanceMonitor.install(line, name="monitor air 2 start", at=50, longitudinal=False)
+    xc.EmittanceMonitor.install(line, name="monitor air 2 end", at=60, longitudinal=False)
+    xc.EmittanceMonitor.install(line, name="monitor end", at=100, longitudinal=False)
 
 def _generate_matched_particles(line):
     # Matched initial parameters
