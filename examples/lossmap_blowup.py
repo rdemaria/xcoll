@@ -59,7 +59,7 @@ assert not np.any(df_with_coll.has_aperture_problem)
 
 # Assign the optics to deduce the gap settings, and calibrate the ADT
 tw = line.twiss()
-line.collimators.assign_optics(twiss=tw)
+line.xcoll.collimators.assign_optics(twiss=tw)
 if plane == 'H':
     adt.calibrate_by_emittance(nemitt=colldb.nemitt_x, twiss=tw)
 else:
@@ -82,11 +82,11 @@ line.build_tracker(_context=xo.ContextCpu(omp_num_threads='auto'))
 
 
 # Track!
-line.scattering.enable()
+line.xcoll.scattering.enable()
 adt.activate()
 line.track(part, num_turns=num_turns, time=True, with_progress=1)
 adt.deactivate()
-line.scattering.disable()
+line.xcoll.scattering.disable()
 print(f"Done tracking in {line.time_last_track:.1f}s.")
 
 

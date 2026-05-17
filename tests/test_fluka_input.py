@@ -145,9 +145,9 @@ def test_fluka_input_line(ignore_crystals):
     )
     colls = [line[name] for name in tt_colls.name]
     line.build_tracker()
-    line.collimators.assign_optics()
+    line.xcoll.collimators.assign_optics()
     if not ignore_crystals:
-        line.collimators.align_to_beam_divergence()
+        line.xcoll.collimators.align_to_beam_divergence()
     path_tmp = Path.cwd() / f'temp_fluka_test_line_{ignore_crystals}'
     particle_ref = xt.Particles('proton', p0c=7e12)
     input_file = xc.fluka.engine.generate_input_file(line=line, clean=False, cwd=path_tmp,

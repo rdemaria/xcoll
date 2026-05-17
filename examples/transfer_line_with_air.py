@@ -60,7 +60,7 @@ xc.EmittanceMonitor.install(line, name="monitor end", at_s=100, longitudinal=Fal
 # Generate an initial distribution of particles
 # =============================================
 # Scattering need to be disabled to be able to twiss
-line.scattering.disable()
+line.xcoll.scattering.disable()
 
 # Matched initial parameters
 betx0 = 154.0835045206266
@@ -86,7 +86,7 @@ part = line.build_particles(x_norm=x_norm, px_norm=px_norm, y_norm=y_norm, py_no
 
 # Track!
 # ======
-line.scattering.enable()
+line.xcoll.scattering.enable()
 line.track(part)
 print("Done Tracking!")
 

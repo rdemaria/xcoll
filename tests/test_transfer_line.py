@@ -31,9 +31,9 @@ def test_transfer_line(test_context):
     assert deep_equal(line["Air 2"].material.to_dict(), air.to_dict())
     _add_monitors(line)
     line.build_tracker(_context=test_context)
-    line.scattering.disable()  # Scattering need to be disabled to be able to twiss
+    line.xcoll.scattering.disable()  # Scattering need to be disabled to be able to twiss
     part = _generate_matched_particles(line)
-    line.scattering.enable()   # Re-enable scattering
+    line.xcoll.scattering.enable()   # Re-enable scattering
     line.track(part)
     tt_mon = line.get_table().rows.match(element_type='EmittanceMonitor')
     nemitt_x = np.array([line[name].nemitt_x for name in tt_mon.name])
