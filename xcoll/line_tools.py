@@ -121,7 +121,10 @@ class XcollScatteringAPI(XcollLineAccessor):
     def names(self):
         # This makes sure the accessor can access the names of the
         # collimators dynamically
-        return self.line.get_elements_of_type(element_classes)[1]
+        tt = self.line.get_table().rows.match(
+            element_type='|'.join(cc.__name__ for cc in element_classes)
+        )
+        return list(tt.name)
 
     def enable(self):
         if len(self) == 0:
@@ -168,7 +171,10 @@ class XcollCollimatorAPI(XcollLineAccessor):
     def names(self):
         # This makes sure the accessor can access the names of the
         # collimators dynamically
-        return self.line.get_elements_of_type(collimator_classes)[1]
+        tt = self.line.get_table().rows.match(
+            element_type='|'.join(cc.__name__ for cc in collimator_classes)
+        )
+        return list(tt.name)
 
     @property
     def families(self):
@@ -483,7 +489,10 @@ class XcollCollimatorAPI(XcollLineAccessor):
                                twiss_downstream=tw_downstream, beta_gamma_rel=beta_gamma_rel)
 
     def align_to_beam_divergence(self):
-        crystals = self.line.get_elements_of_type(crystal_classes)[0]
+        tt = self.line.get_table().rows.match(
+            element_type='|'.join(cc.__name__ for cc in crystal_classes)
+        )
+        crystals = [self.line[name] for name in tt.name]
         if len(crystals) == 0:
             warn("No crystals found in line to align to beam divergence.")
         for el in crystals:
