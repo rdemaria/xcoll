@@ -15,6 +15,12 @@ from xobjects.test_helpers import for_all_test_contexts
 path = Path(__file__).parent / 'data'
 
 
+def test_line_api_facade():
+    line = xt.Line(elements=[], element_names=[])
+    assert isinstance(line.xcoll, xc.XcollLineAPI)
+    assert line.xcoll is line.xcoll
+
+
 @for_all_test_contexts(
     excluding=('ContextCupy', 'ContextPyopencl')  # Rutherford RNG not on GPU
 )

@@ -18,6 +18,41 @@ def _iterable(obj):
     return  hasattr(obj, '__iter__') and not isinstance(obj, str)
 
 
+class XcollLineAPI:
+    def __init__(self, line):
+        self.line = line
+
+    @property
+    def scattering(self):
+        """
+        Interface to Xcoll scattering tools for this line.
+
+        Returns
+        -------
+        scattering : object
+            Xcoll scattering API bound to this line.
+        """
+        if not hasattr(self.line, '_scattering') or self.line._scattering is None:
+            self.line._scattering = XcollScatteringAPI(line=self.line)
+
+        return self.line._scattering
+
+    @property
+    def collimators(self):
+        """
+        Interface to Xcoll collimator tools for this line.
+
+        Returns
+        -------
+        collimators : object
+            Xcoll collimator API bound to this line.
+        """
+        if not hasattr(self.line, '_collimators') or self.line._collimators is None:
+            self.line._collimators = XcollCollimatorAPI(line=self.line)
+
+        return self.line._collimators
+
+
 class XcollLineAccessor:
     _typename = 'element'
 
