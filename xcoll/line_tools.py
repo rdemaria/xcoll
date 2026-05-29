@@ -20,7 +20,11 @@ def _iterable(obj):
 
 class XcollLineAPI:
     def __init__(self, line):
-        self.line = line
+        self._line = line
+
+    @property
+    def line(self):
+        return self._line
 
     @property
     def scattering(self):
@@ -269,26 +273,15 @@ class XcollCollimatorAPI(XcollLineAccessor):
             warn("Warning: `at_s` is deprecated and will be removed in the "
                  "future. Please use `at` instead.", FutureWarning)
             at = at_s
-        if not _iterable(names) or not _iterable(elements) \
-        or not _iterable(at):
-            if _iterable(names):
-                raise ValueError("`names` should not be a list if any of the "
-                                 "other arguments is not a list.")
-            if _iterable(elements):
-                raise ValueError("`elements` should not be a list if any of "
-                                 "the other arguments is not a list.")
-            if _iterable(at):
-                raise ValueError("`at` should not be a list if any of the "
-                                 "other arguments is not a list.")
+        if not _iterable(names):
             names = [names]
+        if not _iterable(elements):
             elements = [elements]
+        if not _iterable(at):
             at = [at for _ in range(len(names))]
-            apertures = [apertures for _ in range(len(names))]
-        if not _iterable(apertures):
-            apertures = [apertures for _ in range(len(names))]
-        names = np.array(names)
-        length = np.array([coll.length for coll in elements])
-        if len(length) != len(names):
+        apertures = [apertures for _ in range(len(names))]  # TODO: this should be done smarter! What if we want to provide a different aperture for each element?
+        # names = np.array(names)
+        if len(elements) != len(names):
             raise ValueError("Length of `elements` does not match length of "
                              "`names`.")
         if len(at) != len(names):
@@ -297,6 +290,7 @@ class XcollCollimatorAPI(XcollLineAccessor):
         if len(apertures) != len(names):
             raise ValueError("Length of `apertures` does not match length of "
                              "`names`.")
+        length = np.array([coll.length for coll in elements])
 
         # Verify elements
         for name, el in zip(names, elements):

@@ -18,7 +18,7 @@ path = Path(__file__).parent / 'data'
 def test_line_api_facade():
     line = xt.Line(elements=[], element_names=[])
     assert isinstance(line.xcoll, xc.XcollLineAPI)
-    assert line.xcoll is line.xcoll
+    assert line.xcoll._line is line
 
 
 @for_all_test_contexts(

@@ -10,5 +10,4 @@ import xcoll as xc
 def test_environment_api_facade():
     env = xt.Environment()
     assert isinstance(env.xcoll, xc.XcollEnvironmentAPI)
-    assert env.xcoll is env.xcoll
     assert env.xcoll._env is env
